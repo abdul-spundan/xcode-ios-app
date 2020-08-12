@@ -7,7 +7,7 @@ trigger:
 - master
 
 variables:
-  uiSource: '/xcode-ios-app'
+  uiSource: 'xcode-ios-app'
   uiBuild: '$(uiSource)/build'
 
 pool:
@@ -20,7 +20,7 @@ steps:
   displayName: 'Install Node.js'
 
 - script: 
-    pushd '/xcode-ios-app'
+    pushd $(uiSource)
     npm install
     npm run build
     popd
@@ -28,7 +28,7 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(uiBuild'
+    rootFolderOrFile: '$(uiBuild)'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
